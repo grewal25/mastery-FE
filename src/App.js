@@ -75,7 +75,7 @@ function App() {
         },
       ]);
     }
-  }, [message, currentTitle]);
+  }, [message, currentTitle, value]);
 
   // Calculate unique titles outside the component
   const uniqueTitles = getUniqueTitles(previousChat);
