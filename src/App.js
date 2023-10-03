@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-
+import ReactMarkdown from "react-markdown";
 // Outside the App component, create a function to extract unique titles
 function getUniqueTitles(chatData) {
   const uniqueTitles = new Set();
@@ -54,6 +54,7 @@ function App() {
     } catch (error) {
       console.log(error);
     }
+    //setValue("");
   };
 
   useEffect(() => {
@@ -75,7 +76,8 @@ function App() {
         },
       ]);
     }
-  }, [message, currentTitle, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [message, currentTitle]);
 
   // Calculate unique titles outside the component
   const uniqueTitles = getUniqueTitles(previousChat);
@@ -105,16 +107,18 @@ function App() {
           {currentChat?.map((chatMessage, index) => (
             <li key={index}>
               <p className="role">{chatMessage.role}</p>
-              <p>{chatMessage.content}</p>
+              <ReactMarkdown className="markdown-body">
+                {chatMessage.content}
+              </ReactMarkdown>
             </li>
           ))}
         </ul>
         <div className="bottom-section">
           <div className="input-container">
             <input value={value} onChange={(e) => setValue(e.target.value)} />
-            <div id="submit" onClick={getMessage}>
+            <button id="submit" onClick={getMessage}>
               submit
-            </div>
+            </button>
           </div>
           <p className="info">this is some random text</p>
         </div>
